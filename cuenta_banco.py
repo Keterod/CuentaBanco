@@ -10,7 +10,17 @@ class CuentaBanco:
         self.saldo = saldo_inicial
 
     def deposito_cuenta(self, monto: float):
-        pass
+        # Validamos que el monto sea un número (int o float)
+        if not isinstance(monto, (int, float)):
+            # Lanzamos TypeError si el tipo de dato no es correcto
+            raise TypeError("El monto debe ser un número")
+
+        # Validamos que el monto sea mayor que cero
+        if monto <= 0:
+            # Lanzamos ValueError si el valor es inválido
+            raise ValueError("El monto a depositar debe ser mayor que cero")
+
+        self.saldo += monto
 
     def retiro_cuenta(self, monto: float):
         pass
