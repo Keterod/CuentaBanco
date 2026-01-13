@@ -2,8 +2,57 @@ from cuenta_banco import CuentaBanco
 
 
 def main():
+    # Crear cuentas iniciales
     cuenta_origen = CuentaBanco("Titular Principal", 1000.0)
     cuenta_destino = CuentaBanco("Cuenta Destino", 500.0)
+    while True:
+        # Mostrar menú
+        print("\n=== MENÚ DE OPERACIONES ===")
+        print("1. Depósito")
+        print("2. Retiro")
+        print("3. Transferencia")
+        print("4. Consulta de saldo")
+        print("5. Salir")
+
+        opcion = input("Seleccione una opción (1-5): ")
+
+        match opcion:
+            case "1":  # Depósito
+                try:
+                    monto = float(input("Ingrese monto a depositar: "))
+                    cuenta_origen.deposito_cuenta(monto)
+                    print(f"Depósito exitoso. Saldo actual: {cuenta_origen.saldo_cuenta()}")
+                except Exception as e:
+                    print("Error:", e)
+
+            case "2":  # Retiro
+                try:
+                    monto = float(input("Ingrese monto a retirar: "))
+                    cuenta_origen.retiro_cuenta(monto)
+                    print(f"Retiro exitoso. Saldo actual: {cuenta_origen.saldo_cuenta()}")
+                except Exception as e:
+                    print("Error:", e)
+
+            case "3":  # Transferencia
+                try:
+                    monto = float(input("Ingrese monto a transferir: "))
+                    cuenta_origen.transferencia_cuenta(monto, cuenta_destino)
+                    print("Transferencia exitosa.")
+                    print(f"Saldo cuenta origen: {cuenta_origen.saldo_cuenta()}")
+                    print(f"Saldo cuenta destino: {cuenta_destino.saldo_cuenta()}")
+                except Exception as e:
+                    print("Error:", e)
+
+            case "4":  # Consulta de saldo
+                print(f"Saldo cuenta origen ({cuenta_origen.titular}): {cuenta_origen.saldo_cuenta()}")
+                print(f"Saldo cuenta destino ({cuenta_destino.titular}): {cuenta_destino.saldo_cuenta()}")
+
+            case "5":  # Salir
+                print("Saliendo del programa.")
+                break
+
+            case _:  # Opción inválida
+                print("Opción inválida. Intente de nuevo.")
 
 
 if __name__ == "__main__":
