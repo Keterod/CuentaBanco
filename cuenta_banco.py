@@ -17,13 +17,24 @@ class CuentaBanco:
 
         # Validamos que el monto sea mayor que cero
         if monto <= 0:
-            # Lanzamos ValueError si el valor es inválido
             raise ValueError("El monto a depositar debe ser mayor que cero")
 
         self.saldo += monto
 
     def retiro_cuenta(self, monto: float):
-        pass
+        # Validamos que el monto sea un número
+        if not isinstance(monto, (int, float)):
+            raise TypeError("El monto debe ser un número")
+
+        # Validamos que el monto sea mayor que cero
+        if monto <= 0:
+            raise ValueError("El monto a retirar debe ser mayor que cero")
+
+        # Validamos que haya saldo suficiente
+        if monto > self.saldo:
+            raise ValueError("Saldo insuficiente")
+
+        self.saldo -= monto
 
     def transferencia_cuenta(self, monto: float, cuenta_destino):
         pass
