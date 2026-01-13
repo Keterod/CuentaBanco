@@ -37,7 +37,24 @@ class CuentaBanco:
         self.saldo -= monto
 
     def transferencia_cuenta(self, monto: float, cuenta_destino):
-        pass
+        # Validamos que el monto sea un número
+        if not isinstance(monto, (int, float)):
+            raise TypeError("El monto debe ser un número")
+
+        # Validamos que el monto sea mayor que cero
+        if monto <= 0:
+            raise ValueError("El monto a transferir debe ser mayor que cero")
+
+        # Validamos que haya saldo suficiente en la cuenta_origen
+        if monto > self.saldo:
+            raise ValueError("Saldo insuficiente")
+
+        # Validamos que la cuenta destino sea un objeto CuentaBanco
+        if not isinstance(cuenta_destino, CuentaBanco):
+            raise TypeError("La cuenta destino debe ser una instancia de CuentaBanco")
+
+        self.saldo -= monto
+        cuenta_destino.saldo += monto
 
     def saldo_cuenta(self) -> float:
         pass
