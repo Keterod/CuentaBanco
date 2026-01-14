@@ -1,12 +1,23 @@
+"""
+Módulo principal de la aplicación bancaria.
+
+Permite interactuar con cuentas bancarias mediante un menú de opciones
+para realizar depósitos, retiros, transferencias y consultas de saldo.
+"""
+
 from cuenta_banco import CuentaBanco
 
 
 def main():
-    # Crear cuentas iniciales
+    """
+    Función principal de la aplicación.
+
+    Muestra un menú interactivo para realizar operaciones bancarias
+    sobre cuentas de ejemplo.
+    """
     cuenta_origen = CuentaBanco("Titular Principal", 1000.0)
     cuenta_destino = CuentaBanco("Cuenta Destino", 500.0)
     while True:
-        # Mostrar menú
         print("\n=== MENÚ DE OPERACIONES ===")
         print("1. Depósito")
         print("2. Retiro")
@@ -22,16 +33,16 @@ def main():
                     monto = float(input("Ingrese monto a depositar: "))
                     cuenta_origen.deposito_cuenta(monto)
                     print(f"Depósito exitoso. Saldo actual: {cuenta_origen.saldo_cuenta()}")
-                except Exception as e:
-                    print("Error:", e)
+                except (ValueError, TypeError) as error:
+                    print("Error:", error)
 
             case "2":  # Retiro
                 try:
                     monto = float(input("Ingrese monto a retirar: "))
                     cuenta_origen.retiro_cuenta(monto)
                     print(f"Retiro exitoso. Saldo actual: {cuenta_origen.saldo_cuenta()}")
-                except Exception as e:
-                    print("Error:", e)
+                except (ValueError, TypeError) as error:
+                    print("Error:", error)
 
             case "3":  # Transferencia
                 try:
@@ -40,13 +51,18 @@ def main():
                     print("Transferencia exitosa.")
                     print(f"Saldo cuenta origen: {cuenta_origen.saldo_cuenta()}")
                     print(f"Saldo cuenta destino: {cuenta_destino.saldo_cuenta()}")
-                except Exception as e:
-                    print("Error:", e)
+                except (ValueError, TypeError) as error:
+                    print("Error:", error)
 
             case "4":  # Consulta de saldo
-                print(f"Saldo cuenta origen ({cuenta_origen.titular}): {cuenta_origen.saldo_cuenta()}")
-                print(f"Saldo cuenta destino ({cuenta_destino.titular}): {cuenta_destino.saldo_cuenta()}")
-
+                print(
+                    f"Saldo cuenta origen ({cuenta_origen.titular}): "
+                    f"{cuenta_origen.saldo_cuenta()}"
+                    )
+                print(
+                    f"Saldo cuenta destino ({cuenta_destino.titular}): "
+                    f"{cuenta_destino.saldo_cuenta()}"
+                )
             case "5":  # Salir
                 print("Saliendo del programa.")
                 break

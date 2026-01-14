@@ -1,4 +1,18 @@
+"""
+Módulo cuenta_banco
+
+Contiene la definición de la clase CuentaBanco que permite realizar
+operaciones básicas bancarias como depósito, retiro, transferencia y consulta de saldo.
+"""
+
 class CuentaBanco:
+    """
+    Representa una cuenta bancaria con operaciones básicas.
+
+    Atributos:
+        titular (str): Nombre del titular de la cuenta.
+        saldo (float): Saldo actual de la cuenta.
+    """
     def __init__(self, titular: str, saldo_inicial: float = 0.0):
         """
         Constructor de la clase CuentaBanco.
@@ -10,46 +24,59 @@ class CuentaBanco:
         self.saldo = saldo_inicial
 
     def deposito_cuenta(self, monto: float):
-        # Validamos que el monto sea un número (int o float)
+        """
+        Realiza un depósito en la cuenta.
+
+        :param monto: Cantidad de dinero a depositar.
+        :raises TypeError: Si el monto no es un número.
+        :raises ValueError: Si el monto es menor o igual a cero.
+        """
         if not isinstance(monto, (int, float)):
-            # Lanzamos TypeError si el tipo de dato no es correcto
             raise TypeError("El monto debe ser un número")
 
-        # Validamos que el monto sea mayor que cero
         if monto <= 0:
             raise ValueError("El monto a depositar debe ser mayor que cero")
 
         self.saldo += monto
 
     def retiro_cuenta(self, monto: float):
-        # Validamos que el monto sea un número
+        """
+        Realiza un retiro de la cuenta.
+
+        :param monto: Cantidad de dinero a retirar.
+        :raises TypeError: Si el monto no es un número.
+        :raises ValueError: Si el monto es menor o igual a cero.
+        :raises ValueError: Si no hay saldo suficiente.
+        """
         if not isinstance(monto, (int, float)):
             raise TypeError("El monto debe ser un número")
 
-        # Validamos que el monto sea mayor que cero
         if monto <= 0:
             raise ValueError("El monto a retirar debe ser mayor que cero")
 
-        # Validamos que haya saldo suficiente
         if monto > self.saldo:
             raise ValueError("Saldo insuficiente")
 
         self.saldo -= monto
 
     def transferencia_cuenta(self, monto: float, cuenta_destino):
-        # Validamos que el monto sea un número
+        """
+        Transfiere dinero a otra cuenta bancaria.
+
+        :param monto: Cantidad de dinero a transferir.
+        :param cuenta_destino: Cuenta que recibirá el dinero.
+        :raises TypeError: Si el monto no es un número o la cuenta destino no es válida.
+        :raises ValueError: Si el monto es menor o igual a cero o no hay saldo suficiente.
+        """
         if not isinstance(monto, (int, float)):
             raise TypeError("El monto debe ser un número")
 
-        # Validamos que el monto sea mayor que cero
         if monto <= 0:
             raise ValueError("El monto a transferir debe ser mayor que cero")
 
-        # Validamos que haya saldo suficiente en la cuenta_origen
         if monto > self.saldo:
             raise ValueError("Saldo insuficiente")
 
-        # Validamos que la cuenta destino sea un objeto CuentaBanco
         if not isinstance(cuenta_destino, CuentaBanco):
             raise TypeError("La cuenta destino debe ser una instancia de CuentaBanco")
 
@@ -57,4 +84,9 @@ class CuentaBanco:
         cuenta_destino.saldo += monto
 
     def saldo_cuenta(self) -> float:
+        """
+        Devuelve el saldo actual de la cuenta.
+
+        :return: Saldo disponible.
+        """
         return self.saldo
